@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body,
+input,
+select,
+textarea,
+button{
+    font-family: "Montserrat", sans-serif;
+}
+
+body{
+    background-color: #e7e8eb;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px #ffffff inset;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+
+
+
+#user_table{
+    display: none;
+}
+#user_table.active{
+    display: block;
+}
+
+
+
+#add_user_modal{
+    display: none;
+}
+
+#add_user_modal.active{
+    display: block;
+}
+
+#update_user_modal{
+    display: none;
+}
+
+#update_user_modal.active{
+    display: block;
+}
+
+
+
+#addUserLoader{
+    display: none;
+}
+
+#addUserLoader.active{
+    display: block;
+    max-width: 30px;
+    margin: 0 auto;
+}
+
+#updateUserLoader{
+    display: none;
+}
+
+#updateUserLoader.active{
+    display: block;
+    max-width: 30px;
+    margin: 0 auto;
+}
+
+
+#loader{
+    display: none;
+}
+
+#loader.active{
+    display: block;
+    max-width: 30px;
+    margin: 0 auto;
+}
+
+.loader {
+    width: 30px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 3px solid #514b82;
+    animation:
+      l20-1 0.8s infinite linear alternate,
+      l20-2 1.6s infinite linear;
+}
+@keyframes l20-1{
+    0%    {clip-path: polygon(50% 50%,0       0,  50%   0%,  50%    0%, 50%    0%, 50%    0%, 50%    0% )}
+    12.5% {clip-path: polygon(50% 50%,0       0,  50%   0%,  100%   0%, 100%   0%, 100%   0%, 100%   0% )}
+    25%   {clip-path: polygon(50% 50%,0       0,  50%   0%,  100%   0%, 100% 100%, 100% 100%, 100% 100% )}
+    50%   {clip-path: polygon(50% 50%,0       0,  50%   0%,  100%   0%, 100% 100%, 50%  100%, 0%   100% )}
+    62.5% {clip-path: polygon(50% 50%,100%    0, 100%   0%,  100%   0%, 100% 100%, 50%  100%, 0%   100% )}
+    75%   {clip-path: polygon(50% 50%,100% 100%, 100% 100%,  100% 100%, 100% 100%, 50%  100%, 0%   100% )}
+    100%  {clip-path: polygon(50% 50%,50%  100%,  50% 100%,   50% 100%,  50% 100%, 50%  100%, 0%   100% )}
+}
+@keyframes l20-2{ 
+    0%    {transform:scaleY(1)  rotate(0deg)}
+    49.99%{transform:scaleY(1)  rotate(135deg)}
+    50%   {transform:scaleY(-1) rotate(0deg)}
+    100%  {transform:scaleY(-1) rotate(-135deg)}
+}
