@@ -97,6 +97,7 @@ const allUser = async () => {
         })
 
         tbody.innerHTML = output
+        message.innerHTML = '';
     }else{
         user_table.classList.remove('active');
         message.innerHTML = "No Records"
