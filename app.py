@@ -2,6 +2,9 @@ from flask import Flask, request, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 import os
+from datetime import datetime
+from pytz import timezone
+
 
 # Init app
 app = Flask(__name__)
@@ -17,7 +20,7 @@ db = SQLAlchemy(app)
 # Init marshmallow
 ma = Marshmallow(app)
 
-
+# ==================================================================================
 # User Class/Model
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -28,7 +31,6 @@ class User(db.Model):
         self.first_name = first_name
         self.email = email
 
-
 # User Schema
 class UserSchema(ma.Schema):
     class Meta:
@@ -38,6 +40,33 @@ class UserSchema(ma.Schema):
 user_schema = UserSchema()
 users_schema = UserSchema(many=True)
 
+
+class Messenger(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+    from_email = db.Column(db.String(100))
+    to_email = db.Column(db.String(100))
+    message = db.Column(db.String(1000))
+    timestamp = db.Column(db.DateTime)
+
+    def __init__(self, name, from_email, to_email, message, timestamp):
+        self.name = name
+        self.from_email = from_email
+        self.to_email = to_email
+        self.message = message
+        self.timestamp = timestamp
+
+class MessengerSchema(ma.Schema):
+    class Meta:
+        fields = ('id', 'name', 'from_email', 'to_email', 'message', 'timestamp')
+
+
+# Init Schema
+messenger_schema = MessengerSchema()
+messengers_schema = MessengerSchema(many=True)
+
+
+#==================================================================================
 
 # view router
 @app.route('/')
@@ -57,6 +86,13 @@ def create_tables():
     with app.app_context():
         db.create_all()
     return 'Tables created successfully!'
+
+
+@app.route('/delete_tables')
+def delete_tables():
+    with app.app_context():
+        db.drop_all()
+    return 'Tables deleted successfully!'
 
 
 # New User
@@ -140,6 +176,52 @@ def delete_user(id):
         })
     else:
         return jsonify({'error': 'User not found'}), 404
+    
+
+@app.route('/new-msg', methods=['POST'])
+def new_msg():
+
+    name = request.json['name']
+    from_email = request.json['from_email']
+    to_email = request.json['to_email']
+    message = request.json['message']
+    timestampe = datetime.now(timezone('Asia/Kolkata'))
+  
+    if not from_email.strip() or not to_email.strip() or not message.strip() or not name.strip():
+        return jsonify({'error': 'from_email, to_email and message cannot be empty'}), 400
+    
+    new_msg = Messenger(name=name, from_email=from_email, to_email=to_email, message=message, timestamp=timestampe)
+
+    db.session.add(new_msg)
+    db.session.commit()
+
+    return jsonify({
+        'msg' : 'Msg Send'
+    })
+
+
+@app.route('/msg', methods=['POST'])
+def all_msg():
+    from_email = request.json['from_email']
+    to_email = request.json['to_email']
+
+    # Query the Messenger table for messages where both from_email and to_email match
+    # messages = Messenger.query.filter_by(from_email=from_email and to_email, to_email=to_email and from_email).all()
+
+    messages = Messenger.query.filter(
+        (Messenger.from_email == from_email) & (Messenger.to_email == to_email) |
+        (Messenger.from_email == to_email) & (Messenger.to_email == from_email)
+    ).all()
+
+    if messages:
+        # Serialize the messages using the schema
+        return messengers_schema.jsonify(messages)
+    else:
+        return jsonify({'error': 'Messages not found'}), 404
+
+
+
+
 
 
 
