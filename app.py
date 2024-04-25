@@ -45,6 +45,11 @@ def index():
     return render_template("index.html")
 
 
+@app.route('/user')
+def user_screen():
+    return render_template("users.html")
+
+
 
 # create table
 @app.route('/create_tables')
