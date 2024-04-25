@@ -9,87 +9,47 @@
 </head>
 <body>
 
+
+
+
+
     <div class="container mx-auto my-10 shadow rounded-lg bg-white">
         <div class="px-3 py-3 flex justify-between items-center bg-white border-b-2">
             <div class="font-semibold text-xl">Chat App</div>
-            <a href="/user" class="bg-black border border-[#e5e5e5] text-white p-2 rounded-md shadow flex items-center text-sm font-medium hover:underline">User List</a>
+            <div class="flex items-center ">
+                <select id="select_from_email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[300px] p-2.5 "></select>
+                <a href="/user" class="block ml-5 w-fit text-center bg-black border border-[#e5e5e5] text-white py-2 px-5 rounded-md shadow  text-sm font-medium hover:underline ">Users</a>
+            </div>
         </div>
 
-        <div class="flex flex-row justify-between bg-white">
+        <div class="flex flex-row justify-between bg-white h-[450px]" id="chat_area">
             <div id="user_list" class="flex flex-col w-2/5 border-r-2 overflow-y-auto"></div>
 
 
-            <div class="w-full px-5 flex flex-col justify-between">
-                <div class="flex flex-col mt-5">
-                <div class="flex justify-end mb-4">
-                    <div
-                    class="mr-2 py-3 px-4 bg-blue-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white"
-                    >
-                    Welcome to group everyone !
-                    </div>
-                    <img
-                    src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
-                    class="object-cover h-8 w-8 rounded-full"
-                    alt=""
-                    />
-                </div>
-                <div class="flex justify-start mb-4">
-                    <img
-                    src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
-                    class="object-cover h-8 w-8 rounded-full"
-                    alt=""
-                    />
-                    <div
-                    class="ml-2 py-3 px-4 bg-gray-400 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-white"
-                    >
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
-                    at praesentium, aut ullam delectus odio error sit rem. Architecto
-                    nulla doloribus laborum illo rem enim dolor odio saepe,
-                    consequatur quas?
-                    </div>
-                </div>
-                <div class="flex justify-end mb-4">
-                    <div>
-                    <div
-                        class="mr-2 py-3 px-4 bg-blue-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white"
-                    >
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                        Magnam, repudiandae.
-                    </div>
+            <div class="w-full px-5 flex flex-col justify-between" id="chat_hint_msg">
+                <h2>You can choose the user and chat with him.</h2>
+            </div>
 
-                    <div
-                        class="mt-4 mr-2 py-3 px-4 bg-blue-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white"
-                    >
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Debitis, reiciendis!
-                    </div>
-                    </div>
-                    <img
-                    src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
-                    class="object-cover h-8 w-8 rounded-full"
-                    alt=""
+
+            <div class="w-full px-5 flex flex-col justify-between" id="chating_area">
+                <div id="toUserName" class="capitalize font-bold"></div>
+                <div class="flex flex-col mt-5 h-[450px] overflow-y-scroll" id="msg_area"></div>
+                <form class="py-3 flex items-center" id="msg_sendForm">
+                    <button type="button" id="refresh_msg_btn" class="mr-4">
+                        <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12.0789 2.25C7.2854 2.25 3.34478 5.913 2.96055 10.5833H2.00002C1.69614 10.5833 1.42229 10.7667 1.30655 11.0477C1.19081 11.3287 1.25606 11.6517 1.47178 11.8657L3.15159 13.5324C3.444 13.8225 3.91567 13.8225 4.20808 13.5324L5.88789 11.8657C6.10361 11.6517 6.16886 11.3287 6.05312 11.0477C5.93738 10.7667 5.66353 10.5833 5.35965 10.5833H4.4668C4.84652 6.75167 8.10479 3.75 12.0789 3.75C14.8484 3.75 17.2727 5.20845 18.6156 7.39279C18.8325 7.74565 19.2944 7.85585 19.6473 7.63892C20.0002 7.42199 20.1104 6.96007 19.8934 6.60721C18.2871 3.99427 15.3873 2.25 12.0789 2.25Z" fill="#1C274C"/>
+                            <path opacity="0.5" d="M20.8412 10.4666C20.5491 10.1778 20.0789 10.1778 19.7868 10.4666L18.1005 12.1333C17.8842 12.3471 17.8185 12.6703 17.934 12.9517C18.0496 13.233 18.3236 13.4167 18.6278 13.4167H19.5269C19.1456 17.2462 15.876 20.25 11.8828 20.25C9.10034 20.25 6.66595 18.7903 5.31804 16.6061C5.10051 16.2536 4.63841 16.1442 4.28591 16.3618C3.93342 16.5793 3.82401 17.0414 4.04154 17.3939C5.65416 20.007 8.56414 21.75 11.8828 21.75C16.6907 21.75 20.6476 18.0892 21.0332 13.4167H22.0002C22.3044 13.4167 22.5784 13.233 22.694 12.9517C22.8096 12.6703 22.7438 12.3471 22.5275 12.1333L20.8412 10.4666Z" fill="#1C274C"/>
+                        </svg>
+                    </button>
+                    <input
+                        class="w-full bg-gray-200 p-2 rounded mr-3"
+                        type="text"
+                        id="msg_input"
+                        placeholder="Type your message here..."
+                        required
                     />
-                </div>
-                <div class="flex justify-start mb-4">
-                    <img
-                    src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
-                    class="object-cover h-8 w-8 rounded-full"
-                    alt=""
-                    />
-                    <div
-                    class="ml-2 py-3 px-4 bg-gray-400 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-white"
-                    >
-                    happy holiday guys!
-                    </div>
-                </div>
-                </div>
-                <div class="py-3">
-                <input
-                    class="w-full bg-gray-200 p-2 rounded"
-                    type="text"
-                    placeholder="type your message here..."
-                />
-                </div>
+                    <button type="submit" class="bg-green-500 py-2 px-5 rounded shadow">Send</button>
+                </form>
             </div>
         </div>
 </div>
