@@ -116,3 +116,48 @@ select:-webkit-autofill:focus {
     50%   {transform:scaleY(-1) rotate(0deg)}
     100%  {transform:scaleY(-1) rotate(-135deg)}
 }
+
+
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+  
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+  
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+  
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+
+#chat_area{
+    display: none;
+}
+
+#chat_area.active{
+    display: flex;
+}
+
+
+
+#chating_area{
+    display: none;
+}
+
+#chating_area.active{
+    display: flex;
+}
+
+#chat_hint_msg{
+    display: flex;
+}
+
+#chat_hint_msg.active{
+    display: none;
+}
