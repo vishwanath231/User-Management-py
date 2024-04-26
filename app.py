@@ -162,12 +162,19 @@ def update_user(id):
 
 
 
-# Delete User
+# Delete User and message
 @app.route('/user/<int:id>', methods=['DELETE'])
 def delete_user(id):
     user = User.query.get(id)
 
     if user:
+        
+        msg = Messenger.query.filter_by(from_email=user.email).first()
+        if msg:
+            db.session.delete(msg)
+            db.session.commit()
+
+
         db.session.delete(user)
         db.session.commit()
 
@@ -178,6 +185,7 @@ def delete_user(id):
         return jsonify({'error': 'User not found'}), 404
     
 
+# new msg
 @app.route('/new-msg', methods=['POST'])
 def new_msg():
 
@@ -200,6 +208,7 @@ def new_msg():
     })
 
 
+# get all chat msg
 @app.route('/msg', methods=['POST'])
 def all_msg():
     from_email = request.json['from_email']
@@ -218,8 +227,6 @@ def all_msg():
         return messengers_schema.jsonify(messages)
     else:
         return jsonify({'error': 'Messages not found'}), 404
-
-
 
 
 
