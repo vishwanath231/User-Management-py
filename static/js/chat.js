@@ -22,6 +22,7 @@ const msgInput = document.getElementById('msg_input');
 const refreshMsgBtn = document.getElementById('refresh_msg_btn');
 const toUserName = document.getElementById('toUserName');
 
+document.getElementById('check_from_user').style.display = "none";
 
 
 const allUser = async (email) => {
@@ -48,18 +49,24 @@ const allUser = async (email) => {
 
             output += `
             <div class="flex flex-row py-2 px-2 items-center border-b-2 hover:bg-gray-100 cursor-pointer" onclick="toUserId('${val.email}', '${NAME}')">
-                <div class="w-10 h-10 bg-gray-300 rounded-full p-3 font-bold text-lg flex items-center justify-center mr-3">
+                <div class="w-10 h-10 bg-[#003049] text-white rounded-full p-3 font-bold text-lg flex items-center justify-center mr-3">
                     ${val?.first_name.charAt(0)}
                 </div>
                 <div class="w-full">
                     <div class="text-lg font-semibold">${val?.first_name}</div>
-                    <span class="text-gray-500 text-sm">${val?.email}</span>
+                    <div class="text-gray-500 text-sm">${val?.email}</div>
                 </div>
             </div>
             `;
         })
 
         userList.innerHTML = output
+    }else{
+        userList.innerHTML = `
+        <div class='flex justify-center p-4 text-sm font-semibold'>
+            Please provide additional details for another user 😢
+        </div>
+        `
     }
 }
 
@@ -78,16 +85,24 @@ const selectFromUser = async () => {
 
     if (res.length >= 1) {
 
+        selectFromEmail.style.display = "block";
+
+
         let output = `<option value=''>Select From User</option>`;
         
         res?.map((val) => {
 
             output += `
-            <option value='${val.email}'>${val.email}</option>
+            <option value='${val.email}'>${val.first_name}</option>
             `;
         })
 
         selectFromEmail.innerHTML = output
+        document.getElementById('check_from_user').style.display = "none";
+
+    }else{
+        document.getElementById('check_from_user').style.display = "block";
+        selectFromEmail.style.display = "none";
     }
 }
 
@@ -100,6 +115,9 @@ selectFromEmail.addEventListener('change', async (e) => {
     if(e.target.value){
         chatArea.classList.add('active');
         FROM_EMAIL = e.target.value;
+        chatingArea.classList.remove('active')
+        chatHintMsg.classList.remove('active')
+
 
         const response = await fetch(api.allUsers, {
             method: 'GET',
