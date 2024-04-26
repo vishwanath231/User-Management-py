@@ -31,10 +31,13 @@
             </div>
 
 
-            <div class="w-full px-5 flex flex-col justify-between" id="chating_area">
-                <div id="toUserName" class="capitalize font-bold"></div>
+            <div class="w-full px-5 flex flex-col justify-between bg-gray-100" id="chating_area">
+               
+                <div id="toUserName" class="capitalize font-bold border-b border-gray-200 pb-2"></div>
+                
                 <div class="flex flex-col mt-5 h-[450px] overflow-y-scroll" id="msg_area"></div>
-                <form class="py-3 flex items-center" id="msg_sendForm">
+
+                <form class="py-3 flex items-center border-t border-gray-200" id="msg_sendForm">
                     <button type="button" id="refresh_msg_btn" class="mr-4">
                         <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12.0789 2.25C7.2854 2.25 3.34478 5.913 2.96055 10.5833H2.00002C1.69614 10.5833 1.42229 10.7667 1.30655 11.0477C1.19081 11.3287 1.25606 11.6517 1.47178 11.8657L3.15159 13.5324C3.444 13.8225 3.91567 13.8225 4.20808 13.5324L5.88789 11.8657C6.10361 11.6517 6.16886 11.3287 6.05312 11.0477C5.93738 10.7667 5.66353 10.5833 5.35965 10.5833H4.4668C4.84652 6.75167 8.10479 3.75 12.0789 3.75C14.8484 3.75 17.2727 5.20845 18.6156 7.39279C18.8325 7.74565 19.2944 7.85585 19.6473 7.63892C20.0002 7.42199 20.1104 6.96007 19.8934 6.60721C18.2871 3.99427 15.3873 2.25 12.0789 2.25Z" fill="#1C274C"/>
@@ -42,13 +45,18 @@
                         </svg>
                     </button>
                     <input
-                        class="w-full bg-gray-200 p-2 rounded mr-3"
+                        class="w-full bg-white text-sm font-medium shadow p-2 rounded mr-3"
                         type="text"
                         id="msg_input"
                         placeholder="Type your message here..."
                         required
                     />
-                    <button type="submit" class="bg-green-500 py-2 px-5 rounded shadow">Send</button>
+                    <button type="submit" class="bg-green-500 p-2  rounded-full shadow">
+                        <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9.51002 4.23001L18.07 8.51001C21.91 10.43 21.91 13.57 18.07 15.49L9.51002 19.77C3.75002 22.65 1.40002 20.29 4.28002 14.54L5.15002 12.81C5.37002 12.37 5.37002 11.64 5.15002 11.2L4.28002 9.46001C1.40002 3.71001 3.76002 1.35001 9.51002 4.23001Z" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M5.44 12H10.84" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
                 </form>
             </div>
         </div>

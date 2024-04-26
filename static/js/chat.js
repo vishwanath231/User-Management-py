@@ -48,8 +48,8 @@ const allUser = async (email) => {
 
             output += `
             <div class="flex flex-row py-2 px-2 items-center border-b-2 hover:bg-gray-100 cursor-pointer" onclick="toUserId('${val.email}', '${NAME}')">
-                <div class="w-10 h-10 bg-gray-300 rounded-full p-3 text-sm flex items-center justify-center mr-3">
-                    V
+                <div class="w-10 h-10 bg-gray-300 rounded-full p-3 font-bold text-lg flex items-center justify-center mr-3">
+                    ${val?.first_name.charAt(0)}
                 </div>
                 <div class="w-full">
                     <div class="text-lg font-semibold">${val?.first_name}</div>
@@ -153,24 +153,42 @@ async function toUserId(toEmail, name) {
 
         toUserName.innerHTML = `${filterUser.first_name} - Chat`
 
-
-
+        
+        
         if (res.length >= 1) {
-
+            
             let output = '';
             
             res?.map((val) => {
+                console.log(NAME === val.name);
     
                 output += `
-                <div class="flex justify-end mb-4 mr-4">
-                    <div>
-                        <div class='text-sm mb-1 capitalize font-bold'>${val.name}</div>
-                        <div class="py-1.5 px-4 rounded shadow-sm bg-blue-400 text-white">
-                            ${val.message}
+                ${
+                    val.name ===  NAME ? 
+                    `
+                        <div class="flex justify-end mb-4 mr-4">
+                            <div>
+                                <div class='text-sm mb-1 capitalize'>Me</div>
+                                <div class="py-1.5 px-4 rounded shadow-sm bg-[#D9FDD3] text-black text-sm font-bold">
+                                    ${val.message}
+                                </div>
+                                <div class='text-xs text-gray-700'>${timeAgo(val.timestamp)}</div>
+                            </div>
                         </div>
-                        <div class='text-sm text-gray-700'>${timeAgo(val.timestamp)}</div>
-                    </div>
-                </div>
+                    `:
+                    `
+                        <div class="flex  justify-start mb-4 mr-4">
+                            <div>
+                                <div class='text-sm mb-1 capitalize'>${val.name}</div>
+                                <div class="py-1.5 px-4 rounded shadow-sm bg-white text-black text-sm font-bold">
+                                    ${val.message}
+                                </div>
+                                <div class='text-xs text-gray-700'>${timeAgo(val.timestamp)}</div>
+                            </div>
+                        </div>
+                    `
+                }
+                
                 `;
             })
     
