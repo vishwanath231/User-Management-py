@@ -136,7 +136,7 @@ def get_user(id):
     if user:
         return user_schema.jsonify(user)
     else:
-        return jsonify({'error': 'User not found'}), 404
+        return jsonify({'error': 'User not founds'}), 404
 
 
 # Update User
